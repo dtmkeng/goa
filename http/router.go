@@ -1,6 +1,7 @@
 package http
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -50,7 +51,12 @@ func init() {
 // var mux Muxer
 
 func httpHandlerFunc(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello")
+	var msg struct {
+		Name string `json:"user"`
+	}
+	msg.Name = "Hello"
+	// return c.Render(200, r.JSON(msg))
+	json.NewEncoder(w).Encode(msg)
 }
 func httpHandlerWrite(w http.ResponseWriter, r *http.Request) {
 	// var (
