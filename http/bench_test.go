@@ -98,27 +98,8 @@ func benchRoutes(b *testing.B, router http.Handler, routes []route) {
 		}
 	}
 }
-func BenchmarkGoa_Param(b *testing.B) {
+func BenchmarkGoa_Error404(b *testing.B) {
 	goahttp = loadGoaSingle("GET", "/user/:name", httpHandlerFunc)
-	r, _ := http.NewRequest("GET", "/user/gordon", nil)
+	r, _ := http.NewRequest("GET", "/test/gordon", nil)
 	benchRequest(b, goahttp, r)
-}
-func BenchmarkGoa_Param5(b *testing.B) {
-	router := loadGoaSingle("GET", fiveColon, httpHandlerFunc)
-
-	r, _ := http.NewRequest("GET", fiveRoute, nil)
-	benchRequest(b, router, r)
-}
-func BenchmarkGoa_Param20(b *testing.B) {
-	router := loadGoaSingle("GET", twentyColon, httpHandlerFunc)
-
-	r, _ := http.NewRequest("GET", twentyRoute, nil)
-	benchRequest(b, router, r)
-}
-
-func BenchmarkGoa_ParamWrite(b *testing.B) {
-	router := loadGoaSingle("GET", "/user/:name", httpHandlerWrite)
-
-	r, _ := http.NewRequest("GET", "/user/gordon", nil)
-	benchRequest(b, router, r)
 }
